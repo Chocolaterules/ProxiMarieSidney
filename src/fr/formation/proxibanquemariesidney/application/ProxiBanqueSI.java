@@ -17,14 +17,8 @@ public class ProxiBanqueSI {
 	public void start() {
 		
 		this.loadTestData();
+		this.manageHomepage();
 		
-		interaction.homepage();
-		if (interaction.readData().equals("1")) {
-			this.create();
-		}
-		else if (interaction.readData().equals("2")) {
-			interaction.options();
-		}
 //		if (interaction.readData().equals(null)) {
 //			interaction.display("Que voulez-vous faire ?");
 //		}
@@ -80,5 +74,16 @@ public class ProxiBanqueSI {
 		this.data.branchList.add(branch);
 	}
 	
+	public void manageHomepage() {
+		interaction.homepage();
+		if (interaction.readData().equals("1")) {
+			System.out.println("creer");
+			//this.create();
+		}
+		else if (interaction.readData().equals("2")) {
+			//interaction.options();
+			System.out.println("consulter");
+		}
+	}
 	
 }
