@@ -1,6 +1,7 @@
 package fr.formation.proxibanquemariesidney.business;
 
 public class Client {
+	
 	public String lastname;
 	public String firstname;
 	public String address;

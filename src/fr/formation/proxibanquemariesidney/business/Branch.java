@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Branch {
+	
 	public String idNum;
 	public String creationDate;
 	public List<Advisor> advisorList;
