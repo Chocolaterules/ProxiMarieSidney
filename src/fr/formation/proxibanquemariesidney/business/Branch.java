@@ -1,5 +1,6 @@
 package fr.formation.proxibanquemariesidney.business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Branch {
@@ -11,6 +12,8 @@ public class Branch {
 	public Branch(String idNum, String creationDate) {
 		this.idNum = idNum;
 		this.creationDate = creationDate;
+		this.manager = new Manager();
+		this.advisorList = new ArrayList<>();
 	}
 	
 }

@@ -6,5 +6,8 @@ public class Manager {
 	public Manager(String id) {
 		this.id = id;
 	}
+	
+	public Manager() {
+	}
 
 }
