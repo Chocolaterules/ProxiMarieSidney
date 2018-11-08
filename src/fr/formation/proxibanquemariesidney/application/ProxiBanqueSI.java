@@ -95,7 +95,7 @@ public class ProxiBanqueSI {
 			this.create();
 		}
 		else if (s.equals("2")) {
-			interaction.display("consulter");
+			interaction.options();
 		}
 		else {
 			System.out.println("exit");

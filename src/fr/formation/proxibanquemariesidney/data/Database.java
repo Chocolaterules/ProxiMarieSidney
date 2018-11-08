@@ -10,7 +10,7 @@ public class Database {
 	public List<Branch> branchList;
 	
 	public Database () {
-		this.branchList = new ArrayList<Branch>();
+		this.branchList = new ArrayList<>();
 	}
 
 }
