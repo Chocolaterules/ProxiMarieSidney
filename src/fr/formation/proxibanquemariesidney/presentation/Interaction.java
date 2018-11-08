@@ -11,12 +11,11 @@ public class Interaction {
 	}
 	
 	public String readData() {
-		return scanner.nextLine();
+		return scanner.next();
 	}
 	
-	public String homepage() {
+	public void homepage() {
 		this.display("Bonjour, bienvenue dans ProxiBanqueSI. Que voulez-vous faire ?\n1. Créer un nouveau client.\n2. Accéder à un client enregistré.\n3. Exit.\nVotre choix ?");
-		return this.readData();
 	}
 	
 	public void options() {

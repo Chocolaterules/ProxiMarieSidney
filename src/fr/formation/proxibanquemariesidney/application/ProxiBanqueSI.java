@@ -13,12 +13,17 @@ public class ProxiBanqueSI {
 	
 	public Database data;
 	public Interaction interaction;
+	
+	public ProxiBanqueSI() {
+		this.data = new Database();
+		this.interaction = new Interaction();
+	}
 
 	public void start() {
 		
 		this.loadTestData();
 		this.manageHomepage();
-		
+	
 //		if (interaction.readData().equals(null)) {
 //			interaction.display("Que voulez-vous faire ?");
 //		}
@@ -65,24 +70,26 @@ public class ProxiBanqueSI {
 	
 	public void loadTestData() {
 		this.data.branchList = new ArrayList<>();
-		Branch branch = new Branch("fghjk", "12/10/2016");
-		branch.manager = new Manager ("dd");
+		Branch branch = new Branch("88mph", "21/10/1985");
+		branch.manager = new Manager ("Thorin");
 		branch.advisorList = new ArrayList<>();
-		Advisor advisor = new Advisor("conseiller1");
-		advisor.clientList.add(new Client("g","g","hj",2,"ghj",5));
+		Advisor advisor = new Advisor("Remus");
+		advisor.clientList.add(new Client("Murdock","Matthew","Hell's Kitchen",10036,"NY",36656565));
 		branch.advisorList.add(advisor);
 		this.data.branchList.add(branch);
 	}
 	
 	public void manageHomepage() {
 		interaction.homepage();
-		if (interaction.readData().equals("1")) {
-			System.out.println("creer");
-			//this.create();
+		String s = interaction.readData();
+		if (s.equals("1")) {
+			interaction.display("creer");
 		}
-		else if (interaction.readData().equals("2")) {
-			//interaction.options();
-			System.out.println("consulter");
+		else if (s.equals("2")) {
+			interaction.display("consulter");
+		}
+		else {
+			System.out.println("exit");
 		}
 	}
 	
