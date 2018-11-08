@@ -2,8 +2,10 @@ package fr.formation.proxibanquemariesidney.business;
 
 import java.util.List;
 
-public class ProxiBanque {
-	public List<Branch> branchList;
+public class Advisor {
+	public String id;
+	public List<Client> clientList;
+	
 	
 
 }

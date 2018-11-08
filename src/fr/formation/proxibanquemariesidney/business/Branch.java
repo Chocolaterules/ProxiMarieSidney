@@ -1,5 +1,13 @@
 package fr.formation.proxibanquemariesidney.business;
 
-public class Branch {
+import java.util.List;
 
+public class Branch {
+	public String idNum;
+	public String creationDate;
+	public List<Advisor> advisorList;
+	public Manager manager;
+	
+	
+	
 }

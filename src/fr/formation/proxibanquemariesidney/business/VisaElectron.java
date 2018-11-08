@@ -1,5 +1,5 @@
 package fr.formation.proxibanquemariesidney.business;
 
-public class VisaElectron {
+public class VisaElectron extends CreditCard {
 
 }
