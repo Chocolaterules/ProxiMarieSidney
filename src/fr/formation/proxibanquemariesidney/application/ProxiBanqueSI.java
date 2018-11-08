@@ -35,10 +35,10 @@ public class ProxiBanqueSI {
 	
 	
 	public void create() {
-		//demander infos et attribuer à chaque étape
+		//demander infos et attribuer ï¿½ chaque ï¿½tape
 		interaction.display("Nom de famille ?");
 		String lastname = interaction.readData();
-		interaction.display("Prénom ?");
+		interaction.display("Prï¿½nom ?");
 		String firstname = interaction.readData();
 		interaction.display("Adresse ?");
 		String address = interaction.readData();
@@ -46,7 +46,7 @@ public class ProxiBanqueSI {
 		int zipCode = Integer.parseInt(interaction.readData());
 		interaction.display("Ville ?");
 		String city = interaction.readData();
-		interaction.display("Numéro de téléphone ?");
+		interaction.display("Numï¿½ro de tï¿½lï¿½phone ?");
 		int telephone = Integer.parseInt(interaction.readData());
 		Client client = new Client(lastname, firstname, address, zipCode, city, telephone);
 	}
@@ -58,7 +58,7 @@ public class ProxiBanqueSI {
 	
 	
 	public void read() {
-		
+
 	}
 	
 	
@@ -95,7 +95,7 @@ public class ProxiBanqueSI {
 			this.create();
 		}
 		else if (s.equals("2")) {
-			interaction.display("consulter");
+			interaction.options();			
 		}
 		else {
 			System.out.println("exit");
