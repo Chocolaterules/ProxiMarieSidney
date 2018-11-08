@@ -7,7 +7,8 @@ public class SavingsAccount extends BankAccount {
 	public SavingsAccount(int interestRate) {
 		this.interestRate = interestRate;
 	}
-	 public SavingsAccount() {
-	 }
+	
+	public SavingsAccount() {
+	}
 
 }
