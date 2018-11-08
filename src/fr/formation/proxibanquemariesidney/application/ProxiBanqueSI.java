@@ -36,7 +36,19 @@ public class ProxiBanqueSI {
 	
 	public void create() {
 		//demander infos et attribuer à chaque étape
-//		Client client = new Client(lastname, firstname, address, zipCode, city, telephone);
+		interaction.display("Nom de famille ?");
+		String lastname = interaction.readData();
+		interaction.display("Prénom ?");
+		String firstname = interaction.readData();
+		interaction.display("Adresse ?");
+		String address = interaction.readData();
+		interaction.display("Code postal ?");
+		int zipCode = Integer.parseInt(interaction.readData());
+		interaction.display("Ville ?");
+		String city = interaction.readData();
+		interaction.display("Numéro de téléphone ?");
+		int telephone = Integer.parseInt(interaction.readData());
+		Client client = new Client(lastname, firstname, address, zipCode, city, telephone);
 	}
 	
 	
@@ -64,9 +76,6 @@ public class ProxiBanqueSI {
 		
 	}
 	
-	public void optionMenu() {
-		
-	}
 	
 	public void loadTestData() {
 		this.data.branchList = new ArrayList<>();
@@ -83,7 +92,7 @@ public class ProxiBanqueSI {
 		interaction.homepage();
 		String s = interaction.readData();
 		if (s.equals("1")) {
-			interaction.display("creer");
+			this.create();
 		}
 		else if (s.equals("2")) {
 			interaction.display("consulter");
