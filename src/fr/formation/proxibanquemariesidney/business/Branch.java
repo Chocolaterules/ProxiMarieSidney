@@ -8,6 +8,9 @@ public class Branch {
 	public List<Advisor> advisorList;
 	public Manager manager;
 	
-	
+	public Branch(String idNum, String creationDate) {
+		this.idNum = idNum;
+		this.creationDate = creationDate;
+	}
 	
 }
