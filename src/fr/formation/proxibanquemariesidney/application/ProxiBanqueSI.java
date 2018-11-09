@@ -28,7 +28,43 @@ public class ProxiBanqueSI {
 	public void start() {
 
 		this.loadTestData();
-		this.manageHomepage();
+		interaction.homepage();
+		this.managefirstChoice();
+		String s = interaction.readData();
+		if (s.equals("1")) {
+			this.create();
+		}
+		else if (s.equals("2")) {
+			interaction.options();			
+		}
+		else if (s.equals("3")) {
+			interaction.display("exit");
+		}
+		else {
+			interaction.display("Ce n'est pas un choix valide.");
+		}
+		s = interaction.readData();
+		if (s.equals("1")) {
+			this.read();
+		}
+		else if (s.equals("2")) {
+			this.modify();;			
+		}
+		else if (s.equals("3")) {
+			this.transfer();;			
+		}
+		else if (s.equals("4")) {
+			this.simulateCredit();;			
+		}
+		else if (s.equals("5")) {
+			this.delete();;			
+		}
+		else if (s.equals("6")) {
+			interaction.display("exit");			
+		}
+		else {
+			interaction.display("Ce n'est pas un choix valide.");
+		}
 
 
 	}
@@ -37,7 +73,7 @@ public class ProxiBanqueSI {
 
 		interaction.display("Nom de famille ?");
 		String lastname = interaction.readData();
-		interaction.display("Prï¿½nom ?");
+		interaction.display("Prénom ?");
 		String firstname = interaction.readData();
 		interaction.display("Adresse ?");
 		String address = interaction.readData();
@@ -45,7 +81,7 @@ public class ProxiBanqueSI {
 		int zipCode = Integer.parseInt(interaction.readData());
 		interaction.display("Ville ?");
 		String city = interaction.readData();
-		interaction.display("Numï¿½ro de tï¿½lï¿½phone ?");
+		interaction.display("Numéro de téléphone ?");
 		int telephone = Integer.parseInt(interaction.readData());
 		if  (interaction.advisorNum == 1) {
 			data.getAdvisor1().clientList.add (new Client(lastname, firstname, address, zipCode, city, telephone));
@@ -53,7 +89,8 @@ public class ProxiBanqueSI {
 		else if (interaction.advisorNum == 2) {
 			data.getAdvisor2().clientList.add (new Client(lastname, firstname, address, zipCode, city, telephone));
 		}
-		interaction.display("Client enregistrï¿½.");
+		interaction.display("Client enregistré.");
+		this.managefirstChoice();
 	}
 
 	public void modify() {
@@ -61,11 +98,11 @@ public class ProxiBanqueSI {
 		while (alive) {
 			interaction.display("Que voulez-vous modifier?");
 			this.modifyMenu.put("1", "Nom de famille");
-			this.modifyMenu.put("2", "PrÃ©nom");
+			this.modifyMenu.put("2", "Prénom");
 			this.modifyMenu.put("3", "Adresse");
 			this.modifyMenu.put("4", "Code postal");
 			this.modifyMenu.put("5", "Ville");
-			this.modifyMenu.put("6", "NumÃ©ro de tÃ©lÃ©phone");
+			this.modifyMenu.put("6", "Numéro de téléphone");
 			this.modifyMenu.put("7", "Exit");
 			
 			if (interaction.readData().equals("exit")) {
@@ -76,6 +113,7 @@ public class ProxiBanqueSI {
 	}
 
 	public void read() {
+		
 
 	}
 
@@ -88,10 +126,10 @@ public class ProxiBanqueSI {
 	}
 
 	public void simulateCredit() {
-		interaction.homepage();
+//		interaction.homepage();
 		String client = "ghfhg";
 		interaction.display("Votre client " + client
-				+ " est fauchÃ©, la simulation effectuÃ©e ne vous permet pas de lui accorder un crÃ©dit. MÃªme avec du piston!");
+				+ " est fauché, la simulation effectuée ne vous permet pas de lui accorder un crédit. Même avec du piston!");
 	}
 
 	public void loadTestData() {
@@ -108,18 +146,8 @@ public class ProxiBanqueSI {
 		this.data.branchList.add(branch);
 	}
 
-	public void manageHomepage() {
-		interaction.homepage();
-		String s = interaction.readData();
-		if (s.equals("1")) {
-			this.create();
-		}
-		else if (s.equals("2")) {
-			interaction.options();			
-		}
-		else {
-			interaction.display("exit");
-		}
+	public void managefirstChoice() {
+		interaction.firstChoice();
 	}
 
 }

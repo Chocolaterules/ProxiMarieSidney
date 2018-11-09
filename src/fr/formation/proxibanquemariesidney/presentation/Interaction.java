@@ -35,17 +35,21 @@ public class Interaction {
 			advisorNum = 1;
 			this.clientChoice.put("1", "Murdock");
 			this.clientChoice.put("2", "Gloinson");
-			this.display("Que voulez-vous faire ?\n1. Créer un nouveau client.\n2. Accéder à un client enregistré.\n3. Exit.\nVotre choix ?");
+//			this.display("Que voulez-vous faire ?\n1. Créer un nouveau client.\n2. Accéder à un client enregistré.\n3. Exit.\nVotre choix ?");
 		}
 		else if (ans.equals("Charles Xavier")) {
 			advisorNum = 2;
 			this.clientChoice.put("1", "Oakenshield");
 			this.clientChoice.put("2", "Lupin");
-			this.display("Que voulez-vous faire ?\n1. Créer un nouveau client.\n2. Accéder à un client enregistré.\n3. Exit.\nVotre choix ?");
+//			this.display("Que voulez-vous faire ?\n1. Créer un nouveau client.\n2. Accéder à un client enregistré.\n3. Exit.\nVotre choix ?");
 		}
 		else {
 			this.display("Ce n'est pas un identifiant valide.");
 		}
+	}
+	
+	public void firstChoice() {
+		this.display("Que voulez-vous faire ?\n1. Créer un nouveau client.\n2. Accéder à un client enregistré.\n3. Exit.\nVotre choix ?");
 	}
 	
 	public void options() {
