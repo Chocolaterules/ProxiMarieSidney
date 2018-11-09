@@ -49,7 +49,7 @@ public class ProxiBanqueSI {
 		interaction.display("Ville ?");
 		String city = interaction.readData();
 		interaction.display("Num�ro de t�l�phone ?");
-		int telephone = Integer.parseInt(interaction.readData());
+		String telephone = interaction.readData();
 		this.getAdvisor().clientList.add (new Client(lastname, firstname, address, zipCode, city, telephone));
 		interaction.display("Client enregistr�.");
 		this.managefirstChoice();
@@ -143,10 +143,10 @@ public class ProxiBanqueSI {
 		branch.manager = new Manager ("Erik Lenscherr");
 		Advisor advisor1 = new Advisor("Guenievre");
 		Advisor advisor2 = new Advisor("Charles Xavier");
-		advisor1.clientList.add(new Client("Murdock","Matthew","Hell's Kitchen",10036,"NY",36656565));
-		advisor1.clientList.add(new Client("Gloinson", "Gimli","Mine de", 34551, "Moria", 25581525));
-		advisor2.clientList.add(new Client("Oakenshield", "Thorin", "Erebor", 35453, "Lonely Mountain", 43463658));
-		advisor2.clientList.add(new Client("Lupin", "Remus", "12 Grimmauld Place", 35658, "London", 37835873));
+		advisor1.clientList.add(new Client("Murdock","Matthew","Hell's Kitchen",10036,"NY", "+33 8 36 65 65 65"));
+		advisor1.clientList.add(new Client("Gloinson", "Gimli","Mine de", 34551, "Moria", "+33 1 47 20 00 01"));
+		advisor2.clientList.add(new Client("Oakenshield", "Thorin", "Erebor", 35453, "Lonely Mountain", "+33 6 43 46 36 58"));
+		advisor2.clientList.add(new Client("Lupin", "Remus", "12 Grimmauld Place", 35658, "London", "+33 7 23 65 48 90"));
 		branch.advisorList.add(advisor1);
 		branch.advisorList.add(advisor2);
 		this.data.branchList.add(branch);
