@@ -8,6 +8,7 @@ import fr.formation.proxibanquemariesidney.presentation.Interaction;
 
 public class ProxiBanqueSI {
 
+
 	public Map<String, String> modifyMenu;
 	public Map<String, String> optionMenu;
 	public Map<String, String> chooseAccount;
@@ -16,17 +17,8 @@ public class ProxiBanqueSI {
 	public Database data;
 	public Interaction interaction;
 	public boolean running;
-	public boolean errorNC;
-	public boolean errorCA;
-	public boolean errorSA;
-	public boolean errorDel;
-	public boolean errorFC;
-	public boolean errorCC;
-	public boolean errorOM;
-	public boolean errorCB;
-	public boolean errorTypeCB;
-	public int AUTHORIZED_OVERDRAFT = 1000;
-	public int INTEREST_RATE = 3;
+	public static final int AUTHORIZED_OVERDAFT = 1000;
+	public static final int INTEREST_RATE = 3;
 
 	public ProxiBanqueSI() {
 		this.data = new Database();
@@ -37,15 +29,6 @@ public class ProxiBanqueSI {
 		this.advisorNum = 0;
 		this.clientNum = 0;
 		this.running = true;
-		this.errorNC = true;
-		this.errorCA = true;
-		this.errorSA = true;
-		this.errorDel = true;
-		this.errorFC = true;
-		this.errorCC = true;
-		this.errorOM = true;
-		this.errorCB = true;
-		this.errorTypeCB = true;
 	}
 
 	public void start() {
@@ -56,19 +39,10 @@ public class ProxiBanqueSI {
 			this.manageFirstChoice();
 			interaction.display("\nAppuyez sur 'Entrer' pour continuer.");
 			interaction.readData();
-			this.errorNC = true;
-			this.errorCA = true;
-			this.errorSA = true;
-			this.errorDel = true;
-			this.errorFC = true;
-			this.errorCC = true;
-			this.errorOM = true;
-			this.errorCB = true;
-			this.errorTypeCB = true;
 		}
 	}
 
-	public void create() {
+	private void create() {
 
 		interaction.display("\n\nNom de famille ?");
 		String lastname = interaction.readData();
@@ -86,6 +60,7 @@ public class ProxiBanqueSI {
 		this.clientNum = this.getAdvisor().clientList.size();
 		int j = 0;
 		while (j == 0) {
+			boolean errorCA = true;
 			while (errorCA) {
 				interaction.display("\nVoulez-vous créer un compte courant pour ce client ?\n\n1. Oui.\n2. Non.");
 				String rep1 = interaction.readData();
@@ -97,10 +72,12 @@ public class ProxiBanqueSI {
 					interaction.display("Date d'ouverture ?");
 					String openingDate = interaction.readData();
 					this.getClient().currentAccount = new CurrentAccount(accountNum, balance, openingDate);
+					boolean errorCB = true;
 					while (errorCB) {
 						interaction.display("Voulez-vous une carte bleue pour ce compte courant ?\n1. Oui.\n2. Non.");
 						String repCB = interaction.readData();
 						if (repCB.equals("1")) {
+							boolean errorTypeCB = true;
 							while (errorTypeCB) {
 								interaction.display(
 										"Quelle type de carte voulez-vous ?\1. Carte Visa Electron.\n2. Carte Visa Premier.");
@@ -132,6 +109,7 @@ public class ProxiBanqueSI {
 					interaction.display("Ce n'est pas une réponse valable.");
 				}
 			}
+			boolean errorSA = true;
 			while (errorSA) {
 				interaction.display("\nVoulez-vous créer un compte épargne pour ce client ?\n\n1. Oui.\n2. Non.");
 				String rep2 = interaction.readData();
@@ -160,6 +138,7 @@ public class ProxiBanqueSI {
 		}
 
 		interaction.display("Client enregistré.");
+		boolean errorNC = true;
 		while (errorNC) {
 			interaction.display(
 					"\n\nQue voulez-vous faire ?\n\n1. Accéder à ce nouveau client.\n2. Revenir au menu principal.\n3. Exit.\n\nVotre choix ?");
@@ -179,7 +158,7 @@ public class ProxiBanqueSI {
 		}
 	}
 
-	public void modify() {
+	private void modify() {
 		boolean alive = true;
 		while (alive) {
 			interaction.display("Que voulez-vous modifier?");
@@ -195,27 +174,27 @@ public class ProxiBanqueSI {
 			}
 			this.interaction.display("\nVotre choix ?");
 
-			String m = interaction.readData();
-			if (m.equals("1")) {
+			String mod = interaction.readData();
+			if (mod.equals("1")) {
 				interaction.display("Modification de " + this.getClient().lastname + " par : [Nouveau Nom].");
 				this.getClient().lastname = interaction.readData();
-			} else if (m.equals("2")) {
+			} else if (mod.equals("2")) {
 				interaction.display("Modification de " + this.getClient().firstname + " par : [Nouveau Prénom]");
 				this.getClient().firstname = interaction.readData();
-			} else if (m.equals("3")) {
+			} else if (mod.equals("3")) {
 				interaction.display("Modification de " + this.getClient().address + " par : [Nouvelle Adresse]");
 				this.getClient().address = interaction.readData();
-			} else if (m.equals("4")) {
+			} else if (mod.equals("4")) {
 				interaction.display("Modification de " + this.getClient().zipCode + " par : [Nouveau Code postal]");
 				this.getClient().zipCode = Integer.parseInt(interaction.readData());
-			} else if (m.equals("5")) {
+			} else if (mod.equals("5")) {
 				interaction.display("Modification de " + this.getClient().city + " par : [Nouvelle Ville]");
 				this.getClient().city = interaction.readData();
-			} else if (m.equals("6")) {
+			} else if (mod.equals("6")) {
 				interaction.display(
 						"Modification de " + this.getClient().telephone + " par : [Nouveau Numéro de téléphone]");
 				this.getClient().telephone = interaction.readData();
-			} else if (m.equals("7")) {
+			} else if (mod.equals("7")) {
 				interaction.display("Sortie de la modification de " + this.getClient().firstname + " "
 						+ this.getClient().lastname + ".");
 				alive = false;
@@ -226,7 +205,7 @@ public class ProxiBanqueSI {
 
 	}
 
-	public void read() {
+	private void read() {
 		interaction.display("\n\nNom : " + this.getClient().lastname);
 		interaction.display("Prénom : " + this.getClient().firstname);
 		interaction.display("Adresse : " + this.getClient().address);
@@ -235,7 +214,8 @@ public class ProxiBanqueSI {
 		interaction.display("Numéro de téléphone : " + this.getClient().telephone);
 	}
 
-	public void delete() {
+	private void delete() {
+		boolean errorDel = true;
 		while (errorDel) {
 			interaction.display("Etes-vous sûr de vouloir supprimer ce client ?\n1. Oui\n2. Non.");
 			String ans = interaction.readData();
@@ -252,7 +232,7 @@ public class ProxiBanqueSI {
 		}
 	}
 
-	public void transfer() {
+	private void transfer() {
 		if (this.getClient().savingsAccount == null || this.getClient().currentAccount == null) {
 			interaction.display("Le client " + this.getClient().firstname + " " + this.getClient().lastname
 					+ " ne possède qu'un seul compte et ne peut donc pas s'effectuer de transfert à lui même.");
@@ -263,26 +243,26 @@ public class ProxiBanqueSI {
 				interaction.display(key + ". " + chooseAccount.get(key));
 			}
 			interaction.display("\nChoix du compte émetteur :");
-			String c = interaction.readData();
+			String account = interaction.readData();
 			interaction.display("Choix du montant :");
-			int v = Integer.parseInt(interaction.readData());
-			if (c.equals("1")) {
-				if ((this.getClient().currentAccount.balance - v + 1000) >= 0) {
-					this.getClient().currentAccount.balance = this.getClient().currentAccount.balance - v;
+			int value = Integer.parseInt(interaction.readData());
+			if (account.equals("1")) {
+				if ((this.getClient().currentAccount.balance - value + AUTHORIZED_OVERDAFT) >= 0) {
+					this.getClient().currentAccount.balance = this.getClient().currentAccount.balance - value;
 					interaction.display("Le nouveau solde du compte courant est : "
 							+ (this.getClient().currentAccount.balance) + " PO.");
-					this.getClient().savingsAccount.balance = this.getClient().savingsAccount.balance + v;
+					this.getClient().savingsAccount.balance = this.getClient().savingsAccount.balance + value;
 					interaction.display("Le nouveau solde du compte épargne est : "
 							+ (this.getClient().savingsAccount.balance) + " PO.");
 				} else {
 					interaction.display("Le solde actuel ne permet pas d'effectuer un tel virement.");
 				}
-			} else if (c.equals("2")) {
-				if (this.getClient().savingsAccount.balance >= v) {
-					this.getClient().savingsAccount.balance = this.getClient().savingsAccount.balance - v;
+			} else if (account.equals("2")) {
+				if (this.getClient().savingsAccount.balance >= value) {
+					this.getClient().savingsAccount.balance = this.getClient().savingsAccount.balance - value;
 					interaction.display("Le nouveau solde du compte épargne est : "
 							+ (this.getClient().savingsAccount.balance) + " PO.");
-					this.getClient().currentAccount.balance = this.getClient().currentAccount.balance + v;
+					this.getClient().currentAccount.balance = this.getClient().currentAccount.balance + value;
 					interaction.display("Le nouveau solde du compte courant est : "
 							+ (this.getClient().currentAccount.balance) + " PO.");
 				} else {
@@ -294,13 +274,13 @@ public class ProxiBanqueSI {
 		}
 	}
 
-	public void simulateCredit() {
+	private void simulateCredit() {
 		String client = this.getClient().firstname + " " + this.getClient().lastname;
 		interaction.display("\n\n\n\n\nVotre client " + client
 				+ " est fauché, la simulation effectuée ne vous permet pas de lui accorder un crédit. Même avec du piston!");
 	}
 
-	public void loadTestData() {
+	private void loadTestData() {
 		Branch branch = new Branch("88mph", "21/10/1985");
 		branch.manager = new Manager("Erik Lenscherr");
 		Advisor advisor1 = new Advisor("Guenievre");
@@ -322,18 +302,19 @@ public class ProxiBanqueSI {
 		this.data.branchList.add(branch);
 	}
 
-	public void manageFirstChoice() {
+	private void manageFirstChoice() {
+		boolean errorFC = true;
 		while (errorFC) {
 			this.firstChoice();
-			String s = interaction.readData();
-			if (s.equals("1")) {
+			String fC = interaction.readData();
+			if (fC.equals("1")) {
 				errorFC = false;
 				this.create();
-			} else if (s.equals("2")) {
+			} else if (fC.equals("2")) {
 				errorFC = false;
 				this.clientChoice();
 				this.optionMenu();
-			} else if (s.equals("3")) {
+			} else if (fC.equals("3")) {
 				errorFC = false;
 				this.exitProxiBanque();
 			} else {
@@ -342,7 +323,7 @@ public class ProxiBanqueSI {
 		}
 	}
 
-	public void homepage() {
+	private void homepage() {
 		interaction.display("Bonjour !  Bienvenue dans ProxiBanqueSI.\n");
 
 		while (advisorNum == 0) {
@@ -359,12 +340,13 @@ public class ProxiBanqueSI {
 		}
 	}
 
-	public void firstChoice() {
+	private void firstChoice() {
 		interaction.display(
 				"\n\nQue voulez-vous faire ?\n\n1. Créer un nouveau client.\n2. Accéder à un client enregistré.\n3. Exit.\n\nVotre choix ?");
 	}
 
-	public void clientChoice() {
+	private void clientChoice() {
+		boolean errorCC = true;
 		while (errorCC) {
 			interaction.display("\nQuel client voulez-vous consulter ?");
 			for (int i = 0; i < this.getAdvisor().clientList.size(); i++) {
@@ -372,9 +354,9 @@ public class ProxiBanqueSI {
 						+ this.getAdvisor().clientList.get(i).lastname);
 			}
 			interaction.display("Votre choix ?");
-			String clch = interaction.readData();
-			if (clch.matches("[0-9]*$")) {
-				clientNum = Integer.parseInt(clch);
+			String cliCho = interaction.readData();
+			if (cliCho.matches("[0-9]*$")) {
+				clientNum = Integer.parseInt(cliCho);
 				errorCC = false;
 			} else {
 				interaction.display("Ce n'est pas une réponse valide.");
@@ -382,7 +364,8 @@ public class ProxiBanqueSI {
 		}
 	}
 
-	public void optionMenu() {
+	private void optionMenu() {
+		boolean errorOM = true;
 		while (errorOM) {
 			this.optionMenu.put("1", "Lire les informations du client.");
 			this.optionMenu.put("2", "Modifier les informations du client.");
@@ -424,15 +407,15 @@ public class ProxiBanqueSI {
 		}
 	}
 
-	public Advisor getAdvisor() {
+	private Advisor getAdvisor() {
 		return data.branchList.get(0).advisorList.get(this.advisorNum - 1);
 	}
 
-	public Client getClient() {
+	private Client getClient() {
 		return data.branchList.get(0).advisorList.get(this.advisorNum - 1).clientList.get(this.clientNum - 1);
 	}
 
-	public void exitProxiBanque() {
+	private void exitProxiBanque() {
 		this.running = false;
 	}
 

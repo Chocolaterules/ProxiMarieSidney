@@ -3,8 +3,8 @@ package fr.formation.proxibanquemariesidney.metier;
 public class CreditCard {
 
 	/*
-	 * Cette classe "CreditCard" correspond aux crates de crÃ©dit, elle a comme
-	 * attribut "cardID" reprÃ©sentant le numÃ©ro de la carte.
+	 * Cette classe "CreditCard" correspond aux cartes de crédit, elle a comme
+	 * attribut "cardID" représentant le numéro de la carte.
 	 * 
 	 */
 
@@ -15,14 +15,14 @@ public class CreditCard {
 	}
 	
 	/*
-	 * Cette mÃ©thode permet d'instancier une carte de crÃ©dit en prÃ©cisant ses attributs.
+	 * Cette méthode permet d'instancier une carte de crédit en précisant ses attributs.
 	 */
 
 	public CreditCard() {
 	}
 	
 	/*
-	 * Cette mÃ©thode permet d'instancier une carte de crÃ©dit sans prÃ©ciser ses attributs.
+	 * Cette méthode permet d'instancier une carte de crédit sans préciser ses attributs.
 	 */
 
 }
