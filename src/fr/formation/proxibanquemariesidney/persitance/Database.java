@@ -1,9 +1,9 @@
-package fr.formation.proxibanquemariesidney.data;
+package fr.formation.proxibanquemariesidney.persitance;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.formation.proxibanquemariesidney.business.Branch;
+import fr.formation.proxibanquemariesidney.metier.Branch;
 
 public class Database {
 	

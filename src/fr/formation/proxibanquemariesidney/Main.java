@@ -1,6 +1,6 @@
 package fr.formation.proxibanquemariesidney;
 
-import fr.formation.proxibanquemariesidney.application.ProxiBanqueSI;
+import fr.formation.proxibanquemariesidney.metier.ProxiBanqueSI;
 
 public class Main {
 

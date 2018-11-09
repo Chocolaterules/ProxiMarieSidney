@@ -1,4 +1,4 @@
-package fr.formation.proxibanquemariesidney.business;
+package fr.formation.proxibanquemariesidney.metier;
 
 import java.util.List;
 
