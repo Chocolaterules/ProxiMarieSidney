@@ -17,58 +17,22 @@ public class ProxiBanqueSI {
 
 	public Database data;
 	public Interaction interaction;
+	public boolean running;
 
 	public ProxiBanqueSI() {
 		this.data = new Database();
 		this.interaction = new Interaction();
 		this.modifyMenu = new HashMap<>();
-
+		this.running = true;
 	}
 
 	public void start() {
 
 		this.loadTestData();
 		interaction.homepage();
-		this.managefirstChoice();
-		String s = interaction.readData();
-		if (s.equals("1")) {
-			this.create();
+		while (this.running) {
+			this.managefirstChoice();
 		}
-		else if (s.equals("2")) {
-			interaction.options();			
-		}
-		else if (s.equals("3")) {
-			interaction.display("exit");
-		}
-		else {
-			interaction.display("Ce n'est pas un choix valide.");
-		}
-		s = interaction.readData();
-		if (s.equals("1")) {
-			this.read();
-		}
-		else if (s.equals("2")) {
-			this.modify();;			
-		}
-		else if (s.equals("3")) {
-			this.transfer();;			
-		}
-		else if (s.equals("4")) {
-			this.simulateCredit();;			
-		}
-		else if (s.equals("5")) {
-			this.delete();;			
-		}
-		else if (s.equals("6")) {
-			interaction.display("exit");			
-		}
-		else {
-			interaction.display("Ce n'est pas un choix valide.");
-		}
-
-
-	
-
 	}
 
 	public void create() {
@@ -125,7 +89,6 @@ public class ProxiBanqueSI {
 
 	public void read() {
 		
-
 	}
 
 	public void delete() {
@@ -158,6 +121,45 @@ public class ProxiBanqueSI {
 
 	public void managefirstChoice() {
 		interaction.firstChoice();
+		String s = interaction.readData();
+		if (s.equals("1")) {
+			this.create();
+		}
+		else if (s.equals("2")) {
+			interaction.options();
+			String st = interaction.readData();
+			if (st.equals("1")) {
+				this.read();
+			}
+			else if (st.equals("2")) {
+				this.modify();;			
+			}
+			else if (st.equals("3")) {
+				this.transfer();;			
+			}
+			else if (st.equals("4")) {
+				this.simulateCredit();;			
+			}
+			else if (st.equals("5")) {
+				this.delete();;			
+			}
+			else if (st.equals("6")) {
+				this.exitProxiBanque();			
+			}
+			else {
+				interaction.display("Ce n'est pas un choix valide.");
+			}
+		}
+		else if (s.equals("3")) {
+			this.exitProxiBanque();
+		}
+		else {
+			interaction.display("Ce n'est pas un choix valide.");
+		}
+	}
+	
+	public void exitProxiBanque() {
+		this.running = false;
 	}
 
 }
