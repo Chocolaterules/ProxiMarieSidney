@@ -23,9 +23,10 @@ public class ProxiBanqueSI {
 	public boolean errorFC;
 	public boolean errorCC;
 	public boolean errorOM;
+	public boolean errorCB;
+	public boolean errorTypeCB;
 	public int AUTHORIZED_OVERDRAFT = 1000;
 	public int INTEREST_RATE = 3;
-
 
 	public ProxiBanqueSI() {
 		this.data = new Database();
@@ -43,6 +44,8 @@ public class ProxiBanqueSI {
 		this.errorFC = true;
 		this.errorCC = true;
 		this.errorOM = true;
+		this.errorCB = true;
+		this.errorTypeCB = true;
 	}
 
 	public void start() {
@@ -60,6 +63,8 @@ public class ProxiBanqueSI {
 			this.errorFC = true;
 			this.errorCC = true;
 			this.errorOM = true;
+			this.errorCB = true;
+			this.errorTypeCB = true;
 		}
 	}
 
@@ -92,6 +97,32 @@ public class ProxiBanqueSI {
 					interaction.display("Date d'ouverture ?");
 					String openingDate = interaction.readData();
 					this.getClient().currentAccount = new CurrentAccount(accountNum, balance, openingDate);
+					while (errorCB) {
+						interaction.display("Voulez-vous une carte bleue pour ce compte courant ?\n1. Oui.\n2. Non.");
+						String repCB = interaction.readData();
+						if (repCB.equals("1")) {
+							while (errorTypeCB) {
+								interaction.display(
+										"Quelle type de carte voulez-vous ?\1. Carte Visa Electron.\n2. Carte Visa Premier.");
+								String repType = interaction.readData();
+								if (repType.equals("1")) {
+									this.getClient().creditCard = new VisaElectron();
+									errorTypeCB = false;
+								} else if (repType.equals("2")) {
+									this.getClient().creditCard = new VisaPremier();
+									errorTypeCB = false;
+								} else {
+									interaction.display("Ce n'est pas une réponse valide");
+								}
+							}
+							errorCB = false;
+						} else if (repCB.equals("2")) {
+							interaction.display("Très bien.");
+							errorCB = false;
+						} else {
+							interaction.display("Ce n'est pas une réponse valide");
+						}
+					}
 					errorCA = false;
 					j++;
 				} else if (rep1.equals("2")) {
@@ -181,10 +212,12 @@ public class ProxiBanqueSI {
 				interaction.display("Modification de " + this.getClient().city + " par : [Nouvelle Ville]");
 				this.getClient().city = interaction.readData();
 			} else if (m.equals("6")) {
-				interaction.display("Modification de " + this.getClient().telephone + " par : [Nouveau Numéro de téléphone]");
+				interaction.display(
+						"Modification de " + this.getClient().telephone + " par : [Nouveau Numéro de téléphone]");
 				this.getClient().telephone = interaction.readData();
 			} else if (m.equals("7")) {
-				interaction.display("Sortie de la modification de " + this.getClient().firstname + " " + this.getClient().lastname + ".");
+				interaction.display("Sortie de la modification de " + this.getClient().firstname + " "
+						+ this.getClient().lastname + ".");
 				alive = false;
 			} else {
 				interaction.display("Ce n'est pas un choix valide!");
@@ -220,44 +253,44 @@ public class ProxiBanqueSI {
 	}
 
 	public void transfer() {
-		if (this.getClient().savingsAccount != null && this.getClient().currentAccount != null) {
-			this.chooseAccount.put("1", "Compte courrant : " + this.getClient().currentAccount.balance + " PO.");
-			this.chooseAccount.put("2", "Compte Ã©pargne : " + this.getClient().savingsAccount.balance + " PO.");
+		if (this.getClient().savingsAccount == null || this.getClient().currentAccount == null) {
+			interaction.display("Le client " + this.getClient().firstname + " " + this.getClient().lastname
+					+ " ne possède qu'un seul compte et ne peut donc pas s'effectuer de transfert à lui même.");
+		} else {
+			this.chooseAccount.put("1", "Compte courant : " + this.getClient().currentAccount.balance + " PO.");
+			this.chooseAccount.put("2", "Compte épargne : " + this.getClient().savingsAccount.balance + " PO.");
 			for (String key : chooseAccount.keySet()) {
 				interaction.display(key + ". " + chooseAccount.get(key));
 			}
-			interaction.display("\nChoix du compte Ã©metteur :");
+			interaction.display("\nChoix du compte émetteur :");
 			String c = interaction.readData();
 			interaction.display("Choix du montant :");
 			int v = Integer.parseInt(interaction.readData());
 			if (c.equals("1")) {
 				if ((this.getClient().currentAccount.balance - v + 1000) >= 0) {
 					this.getClient().currentAccount.balance = this.getClient().currentAccount.balance - v;
-					interaction.display("Le nouveau solde du compte courrant est : " + (this.getClient().currentAccount.balance) + " PO.");
+					interaction.display("Le nouveau solde du compte courant est : "
+							+ (this.getClient().currentAccount.balance) + " PO.");
 					this.getClient().savingsAccount.balance = this.getClient().savingsAccount.balance + v;
-					interaction.display("Le nouveau solde du compte Ã©pargne est : " + (this.getClient().savingsAccount.balance) + " PO.");
-				}
-				else {
+					interaction.display("Le nouveau solde du compte épargne est : "
+							+ (this.getClient().savingsAccount.balance) + " PO.");
+				} else {
 					interaction.display("Le solde actuel ne permet pas d'effectuer un tel virement.");
 				}
-			}
-			else if (c.equals("2")) {
+			} else if (c.equals("2")) {
 				if (this.getClient().savingsAccount.balance >= v) {
 					this.getClient().savingsAccount.balance = this.getClient().savingsAccount.balance - v;
-					interaction.display("Le nouveau solde du compte Ã©pargne est : " + (this.getClient().savingsAccount.balance) + " PO.");
+					interaction.display("Le nouveau solde du compte épargne est : "
+							+ (this.getClient().savingsAccount.balance) + " PO.");
 					this.getClient().currentAccount.balance = this.getClient().currentAccount.balance + v;
-					interaction.display("Le nouveau solde du compte courrant est : " + (this.getClient().currentAccount.balance) + " PO.");
-				}
-				else {
+					interaction.display("Le nouveau solde du compte courant est : "
+							+ (this.getClient().currentAccount.balance) + " PO.");
+				} else {
 					interaction.display("Le solde actuel ne permet pas d'effectuer un tel virement.");
 				}
+			} else {
+				interaction.display("Entrée non valide");
 			}
-			else {
-				interaction.display("EntrÃ©e non valide");
-			}
-		}
-		else {
-			interaction.display("Le client " + this.getClient().firstname + " " + this.getClient().lastname + " ne possÃ¨de qu'un seul compte et ne peut donc pas s'effectuer de transfert Ã  lui mÃªme.");
 		}
 	}
 
