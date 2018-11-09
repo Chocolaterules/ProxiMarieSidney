@@ -2,15 +2,11 @@ package fr.formation.proxibanquemariesidney.metier;
 
 public class CurrentAccount extends BankAccount {
 	
-	public int authorizedOverdraft = 1000;
-	
-	public CurrentAccount(int authorizedOverdraft) {
-		this.authorizedOverdraft = authorizedOverdraft;
+	public CurrentAccount(int accountNum, int balance, String openingDate) {
+		super(accountNum, balance, openingDate);
 	}
 	
 	public CurrentAccount() {
 	}
 	
-	
-
 }
