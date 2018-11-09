@@ -30,17 +30,11 @@ public class ProxiBanqueSI {
 		this.loadTestData();
 		this.manageHomepage();
 
-//		if (interaction.readData().equals(null)) {
-//			interaction.display("Que voulez-vous faire ?");
-//		}
-//		else {
-//			interaction.display("Ce n'est pas un identifiant valide.");
-//		}
 
 	}
 
 	public void create() {
-		// demander infos et attribuer � chaque �tape
+
 		interaction.display("Nom de famille ?");
 		String lastname = interaction.readData();
 		interaction.display("Pr�nom ?");
@@ -53,7 +47,13 @@ public class ProxiBanqueSI {
 		String city = interaction.readData();
 		interaction.display("Num�ro de t�l�phone ?");
 		int telephone = Integer.parseInt(interaction.readData());
-		Client client = new Client(lastname, firstname, address, zipCode, city, telephone);
+		if  (interaction.advisorNum == 1) {
+			data.getAdvisor1().clientList.add (new Client(lastname, firstname, address, zipCode, city, telephone));
+		}
+		else if (interaction.advisorNum == 2) {
+			data.getAdvisor2().clientList.add (new Client(lastname, firstname, address, zipCode, city, telephone));
+		}
+		interaction.display("Client enregistr�.");
 	}
 
 	public void modify() {
@@ -95,14 +95,16 @@ public class ProxiBanqueSI {
 	}
 
 	public void loadTestData() {
-		this.data.branchList = new ArrayList<>();
 		Branch branch = new Branch("88mph", "21/10/1985");
-		branch.manager = new Manager("Thorin");
-		branch.advisorList = new ArrayList<>();
-		Advisor advisor = new Advisor("Remus");
-		advisor.clientList.add(new Client("Murdock", "Matthew", "Hell's Kitchen", 10036, "NY", 36656565));
-
-		branch.advisorList.add(advisor);
+		branch.manager = new Manager ("Erik Lenscherr");
+		Advisor advisor1 = new Advisor("Guenievre");
+		Advisor advisor2 = new Advisor("Charles Xavier");
+		advisor1.clientList.add(new Client("Murdock","Matthew","Hell's Kitchen",10036,"NY",36656565));
+		advisor1.clientList.add(new Client("Gloinson", "Gimli","Mine de", 34551, "Moria", 25581525));
+		advisor2.clientList.add(new Client("Oakenshield", "Thorin", "Erebor", 35453, "Lonely Mountain", 43463658));
+		advisor2.clientList.add(new Client("Lupin", "Remus", "12 Grimmauld Place", 35658, "London", 37835873));
+		branch.advisorList.add(advisor1);
+		branch.advisorList.add(advisor2);
 		this.data.branchList.add(branch);
 	}
 
@@ -111,10 +113,12 @@ public class ProxiBanqueSI {
 		String s = interaction.readData();
 		if (s.equals("1")) {
 			this.create();
-		} else if (s.equals("2")) {
-			interaction.options();
-		} else {
-			System.out.println("exit");
+		}
+		else if (s.equals("2")) {
+			interaction.options();			
+		}
+		else {
+			interaction.display("exit");
 		}
 	}
 
