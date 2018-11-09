@@ -1,4 +1,4 @@
-package fr.formation.proxibanquemariesidney.persitance;
+package fr.formation.proxibanquemariesidney.persistance;
 
 import java.util.ArrayList;
 import java.util.List;

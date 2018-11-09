@@ -3,7 +3,7 @@ package fr.formation.proxibanquemariesidney.metier;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.formation.proxibanquemariesidney.persitance.Database;
+import fr.formation.proxibanquemariesidney.persistance.Database;
 import fr.formation.proxibanquemariesidney.presentation.Interaction;
 
 public class ProxiBanqueSI {
