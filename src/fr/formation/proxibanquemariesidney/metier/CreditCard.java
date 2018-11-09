@@ -24,5 +24,4 @@ public class CreditCard {
 	/*
 	 * Cette méthode permet d'instancier une carte de crédit sans préciser ses attributs.
 	 */
-
 }

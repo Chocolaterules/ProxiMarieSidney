@@ -2,6 +2,10 @@ package fr.formation.proxibanquemariesidney.metier;
 
 public class Client {
 	
+	/*
+	 * 
+	 */
+	
 	public String lastname;
 	public String firstname;
 	public String address;
@@ -23,5 +27,7 @@ public class Client {
 
 	}
 	
-
+	/*
+	 * 
+	 */
 }
