@@ -1,6 +1,5 @@
 package fr.formation.proxibanquemariesidney.application;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +38,7 @@ public class ProxiBanqueSI {
 
 		interaction.display("Nom de famille ?");
 		String lastname = interaction.readData();
-		interaction.display("Prï¿½nom ?");
+		interaction.display("Prénom ?");
 		String firstname = interaction.readData();
 		interaction.display("Adresse ?");
 		String address = interaction.readData();
@@ -47,15 +46,10 @@ public class ProxiBanqueSI {
 		int zipCode = Integer.parseInt(interaction.readData());
 		interaction.display("Ville ?");
 		String city = interaction.readData();
-		interaction.display("Numï¿½ro de tï¿½lï¿½phone ?");
+		interaction.display("Numéro de téléphone ?");
 		int telephone = Integer.parseInt(interaction.readData());
-		if  (interaction.advisorNum == 1) {
-			data.getAdvisor1().clientList.add (new Client(lastname, firstname, address, zipCode, city, telephone));
-		}
-		else if (interaction.advisorNum == 2) {
-			data.getAdvisor2().clientList.add (new Client(lastname, firstname, address, zipCode, city, telephone));
-		}
-		interaction.display("Client enregistrï¿½.");
+		this.getAdvisor().clientList.add (new Client(lastname, firstname, address, zipCode, city, telephone));
+		interaction.display("Client enregistré.");
 		this.managefirstChoice();
 	}
 
@@ -64,11 +58,11 @@ public class ProxiBanqueSI {
 		while (alive) {
 			interaction.display("Que voulez-vous modifier?");
 			this.modifyMenu.put("1", "Nom de famille");
-			this.modifyMenu.put("2", "Prï¿½nom");
+			this.modifyMenu.put("2", "Prénom");
 			this.modifyMenu.put("3", "Adresse");
 			this.modifyMenu.put("4", "Code postal");
 			this.modifyMenu.put("5", "Ville");
-			this.modifyMenu.put("6", "Numï¿½ro de tï¿½lï¿½phone");
+			this.modifyMenu.put("6", "Numéro de téléphone");
 			this.modifyMenu.put("7", "Exit");
 			for (String key : modifyMenu.keySet()) {
 				this.interaction.display(key + ". " + modifyMenu.get(key));
@@ -115,7 +109,14 @@ public class ProxiBanqueSI {
 	}
 
 	public void delete() {
-
+		interaction.display("Etes-vous sûr de vouloir supprimer ce client ?\n1. Oui\n2. Non.");
+		String ans = interaction.readData();
+		if (ans.equals("1")) {
+			this.getAdvisor().clientList.remove(this.getClient());
+		}
+		else if (ans.equals("2")) {
+			this.managefirstChoice();
+		}
 	}
 
 	public void transfer() {
@@ -125,7 +126,7 @@ public class ProxiBanqueSI {
 	public void simulateCredit() {
 		String client = "Jacky";
 		interaction.display("Votre client " + client
-				+ " est fauchï¿½, la simulation effectuï¿½e ne vous permet pas de lui accorder un crï¿½dit. Mï¿½me avec du piston!");
+				+ " est fauché, la simulation effectuée ne vous permet pas de lui accorder un crédit. Même avec du piston!");
 	}
 
 	public void loadTestData() {
@@ -179,6 +180,14 @@ public class ProxiBanqueSI {
 		else {
 			interaction.display("Ce n'est pas un choix valide.");
 		}
+	}
+	
+	public Advisor getAdvisor() {
+		return data.branchList.get(0).advisorList.get(interaction.advisorNum-1);
+	}
+	
+	public Client getClient() {
+		return data.branchList.get(0).advisorList.get(interaction.advisorNum-1).clientList.get(interaction.clientNum-1);
 	}
 	
 	public void exitProxiBanque() {
