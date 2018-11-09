@@ -19,9 +19,8 @@ public class Client {
 		this.zipCode = zipCode;
 		this.city = city;
 		this.telephone = telephone;
-		this.savingsAccount = new SavingsAccount();
 		this.creditCard = new CreditCard();
-		this.currentAccount = new CurrentAccount();
+
 	}
 	
 
