@@ -5,6 +5,10 @@ import java.util.List;
 
 public class Advisor {
 	
+	/*
+	 * 
+	 */
+	
 	public String id;
 	public List<Client> clientList;
 	
@@ -13,7 +17,14 @@ public class Advisor {
 		this.clientList = new ArrayList<>();
 	}
 	
+	/*
+	 * 
+	 */
+	
 	public Advisor() {
 	}
-
+	
+	/*
+	 * 
+	 */
 }
