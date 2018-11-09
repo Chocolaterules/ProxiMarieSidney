@@ -77,12 +77,35 @@ public class ProxiBanqueSI {
 			
 			String m = interaction.readData();
 			if (m.equals("1")) {
-				interaction.display("Nom de famille de Jacky");
+				interaction.display("Prénom de " + interaction.clientNum);
+				// il faut mettre une pause avant la ligne suivante et aussi modifier le nom, et surtout afficher le nom et pas le numero
 			}
-			
+			if (m.equals("2")) {
+				interaction.display("Prénom de famille de Jacky");
+				
+			}
+			if (m.equals("3")) {
+				interaction.display("Adresse de famille de Jacky");
+				
+			}
+			if (m.equals("4")) {
+				interaction.display("Zip de famille de Jacky");
+				
+			}
+			if (m.equals("5")) {
+				interaction.display("Nom de famille de Jacky");
+				
+			}
+			if (m.equals("6")) {
+				interaction.display("Nom de famille de Jacky");
+				
+			}			
 			if (m.equals("7")) {
 				alive = false;
 				}
+			else {
+				interaction.display("Ce n'est pas un choix valide!");
+			}
 		}
 
 	}
