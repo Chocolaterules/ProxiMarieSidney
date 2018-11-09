@@ -28,9 +28,44 @@ public class ProxiBanqueSI {
 	public void start() {
 
 		this.loadTestData();
-		this.manageHomepage();
-//		this.modify();
-		
+		interaction.homepage();
+		this.managefirstChoice();
+		String s = interaction.readData();
+		if (s.equals("1")) {
+			this.create();
+		}
+		else if (s.equals("2")) {
+			interaction.options();			
+		}
+		else if (s.equals("3")) {
+			interaction.display("exit");
+		}
+		else {
+			interaction.display("Ce n'est pas un choix valide.");
+		}
+		s = interaction.readData();
+		if (s.equals("1")) {
+			this.read();
+		}
+		else if (s.equals("2")) {
+			this.modify();;			
+		}
+		else if (s.equals("3")) {
+			this.transfer();;			
+		}
+		else if (s.equals("4")) {
+			this.simulateCredit();;			
+		}
+		else if (s.equals("5")) {
+			this.delete();;			
+		}
+		else if (s.equals("6")) {
+			interaction.display("exit");			
+		}
+		else {
+			interaction.display("Ce n'est pas un choix valide.");
+		}
+
 
 	
 
@@ -57,6 +92,7 @@ public class ProxiBanqueSI {
 			data.getAdvisor2().clientList.add (new Client(lastname, firstname, address, zipCode, city, telephone));
 		}
 		interaction.display("Client enregistr�.");
+		this.managefirstChoice();
 	}
 
 	public void modify() {
@@ -64,11 +100,11 @@ public class ProxiBanqueSI {
 		while (alive) {
 			interaction.display("Que voulez-vous modifier?");
 			this.modifyMenu.put("1", "Nom de famille");
-			this.modifyMenu.put("2", "Prénom");
+			this.modifyMenu.put("2", "Pr�nom");
 			this.modifyMenu.put("3", "Adresse");
 			this.modifyMenu.put("4", "Code postal");
 			this.modifyMenu.put("5", "Ville");
-			this.modifyMenu.put("6", "Numéro de téléphone");
+			this.modifyMenu.put("6", "Num�ro de t�l�phone");
 			this.modifyMenu.put("7", "Exit");
 			for (String key : modifyMenu.keySet()) {
 				this.interaction.display(key + ". " + modifyMenu.get(key));
@@ -88,6 +124,7 @@ public class ProxiBanqueSI {
 	}
 
 	public void read() {
+		
 
 	}
 
@@ -102,7 +139,7 @@ public class ProxiBanqueSI {
 	public void simulateCredit() {
 		String client = "Jacky";
 		interaction.display("Votre client " + client
-				+ " est fauché, la simulation effectuée ne vous permet pas de lui accorder un crédit. Même avec du piston!");
+				+ " est fauch�, la simulation effectu�e ne vous permet pas de lui accorder un cr�dit. M�me avec du piston!");
 	}
 
 	public void loadTestData() {
@@ -119,18 +156,8 @@ public class ProxiBanqueSI {
 		this.data.branchList.add(branch);
 	}
 
-	public void manageHomepage() {
-		interaction.homepage();
-		String s = interaction.readData();
-		if (s.equals("1")) {
-			this.create();
-		}
-		else if (s.equals("2")) {
-			interaction.options();			
-		}
-		else {
-			interaction.display("exit");
-		}
+	public void managefirstChoice() {
+		interaction.firstChoice();
 	}
 
 }
