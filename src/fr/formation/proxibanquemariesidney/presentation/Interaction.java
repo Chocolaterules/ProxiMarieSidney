@@ -13,5 +13,4 @@ public class Interaction {
 	public String readData() {
 		return scanner.nextLine();
 	}
-	
 }
