@@ -29,7 +29,10 @@ public class ProxiBanqueSI {
 
 		this.loadTestData();
 		this.manageHomepage();
+//		this.modify();
+		
 
+	
 
 	}
 
@@ -67,8 +70,17 @@ public class ProxiBanqueSI {
 			this.modifyMenu.put("5", "Ville");
 			this.modifyMenu.put("6", "Numéro de téléphone");
 			this.modifyMenu.put("7", "Exit");
+			for (String key : modifyMenu.keySet()) {
+				this.interaction.display(key + ". " + modifyMenu.get(key));
+			}
+			this.interaction.display("Votre choix ?");
 			
-			if (interaction.readData().equals("exit")) {
+			String m = interaction.readData();
+			if (m.equals("1")) {
+				interaction.display("Nom de famille de Jacky");
+			}
+			
+			if (m.equals("7")) {
 				alive = false;
 				}
 		}
@@ -88,8 +100,7 @@ public class ProxiBanqueSI {
 	}
 
 	public void simulateCredit() {
-		interaction.homepage();
-		String client = "ghfhg";
+		String client = "Jacky";
 		interaction.display("Votre client " + client
 				+ " est fauché, la simulation effectuée ne vous permet pas de lui accorder un crédit. Même avec du piston!");
 	}
