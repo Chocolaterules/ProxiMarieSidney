@@ -29,19 +29,19 @@ public class Interaction {
 	}
 	
 	public void homepage() {
-		this.display("Bonjour, bienvenue dans ProxiBanqueSI. Veuillez vous identifier.");
+		this.display("Bonjour!\n\nBienvenue dans ProxiBanqueSI. Veuillez vous identifier.");
 		String ans = this.readData();
 		if (ans.equals("Guenievre")) {
 			advisorNum = 1;
 			this.clientChoice.put("1", "Murdock");
 			this.clientChoice.put("2", "Gloinson");
-//			this.display("Que voulez-vous faire ?\n1. Créer un nouveau client.\n2. Accéder à un client enregistré.\n3. Exit.\nVotre choix ?");
+//			this.display("Que voulez-vous faire ?\n1. Crï¿½er un nouveau client.\n2. Accï¿½der ï¿½ un client enregistrï¿½.\n3. Exit.\nVotre choix ?");
 		}
 		else if (ans.equals("Charles Xavier")) {
 			advisorNum = 2;
 			this.clientChoice.put("1", "Oakenshield");
 			this.clientChoice.put("2", "Lupin");
-//			this.display("Que voulez-vous faire ?\n1. Créer un nouveau client.\n2. Accéder à un client enregistré.\n3. Exit.\nVotre choix ?");
+//			this.display("Que voulez-vous faire ?\n1. Crï¿½er un nouveau client.\n2. Accï¿½der ï¿½ un client enregistrï¿½.\n3. Exit.\nVotre choix ?");
 		}
 		else {
 			this.display("Ce n'est pas un identifiant valide.");
@@ -49,7 +49,7 @@ public class Interaction {
 	}
 	
 	public void firstChoice() {
-		this.display("Que voulez-vous faire ?\n1. Créer un nouveau client.\n2. Accéder à un client enregistré.\n3. Exit.\nVotre choix ?");
+		this.display("Que voulez-vous faire ?\n1. Crï¿½er un nouveau client.\n2. Accï¿½der ï¿½ un client enregistrï¿½.\n3. Exit.\nVotre choix ?");
 	}
 	
 	public void options() {
@@ -62,7 +62,7 @@ public class Interaction {
 		this.optionMenu.put("1", "Lire les informations du client.");
 		this.optionMenu.put("2", "Modifier les informations du client.");
 		this.optionMenu.put("3", "Faire un virement.");
-		this.optionMenu.put("4", "Faire une simulation de crédit.");
+		this.optionMenu.put("4", "Faire une simulation de crï¿½dit.");
 		this.optionMenu.put("5", "Supprimer le client.");
 		this.optionMenu.put("6", "Exit.");
 		this.display("Que voulez-vous faire?\n");

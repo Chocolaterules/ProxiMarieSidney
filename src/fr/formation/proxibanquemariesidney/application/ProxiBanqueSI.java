@@ -31,6 +31,8 @@ public class ProxiBanqueSI {
 		interaction.homepage();
 		while (this.running) {
 			this.managefirstChoice();
+			interaction.display("\nAppuyez sur 'Entrer' pour continuer");
+			interaction.readData();
 		}
 	}
 
@@ -38,7 +40,7 @@ public class ProxiBanqueSI {
 
 		interaction.display("Nom de famille ?");
 		String lastname = interaction.readData();
-		interaction.display("Prénom ?");
+		interaction.display("Prï¿½nom ?");
 		String firstname = interaction.readData();
 		interaction.display("Adresse ?");
 		String address = interaction.readData();
@@ -46,10 +48,10 @@ public class ProxiBanqueSI {
 		int zipCode = Integer.parseInt(interaction.readData());
 		interaction.display("Ville ?");
 		String city = interaction.readData();
-		interaction.display("Numéro de téléphone ?");
+		interaction.display("Numï¿½ro de tï¿½lï¿½phone ?");
 		int telephone = Integer.parseInt(interaction.readData());
 		this.getAdvisor().clientList.add (new Client(lastname, firstname, address, zipCode, city, telephone));
-		interaction.display("Client enregistré.");
+		interaction.display("Client enregistrï¿½.");
 		this.managefirstChoice();
 	}
 
@@ -58,11 +60,11 @@ public class ProxiBanqueSI {
 		while (alive) {
 			interaction.display("Que voulez-vous modifier?");
 			this.modifyMenu.put("1", "Nom de famille");
-			this.modifyMenu.put("2", "Prénom");
+			this.modifyMenu.put("2", "Prï¿½nom");
 			this.modifyMenu.put("3", "Adresse");
 			this.modifyMenu.put("4", "Code postal");
 			this.modifyMenu.put("5", "Ville");
-			this.modifyMenu.put("6", "Numéro de téléphone");
+			this.modifyMenu.put("6", "Numï¿½ro de tï¿½lï¿½phone");
 			this.modifyMenu.put("7", "Exit");
 			for (String key : modifyMenu.keySet()) {
 				this.interaction.display(key + ". " + modifyMenu.get(key));
@@ -71,30 +73,32 @@ public class ProxiBanqueSI {
 			
 			String m = interaction.readData();
 			if (m.equals("1")) {
-				interaction.display("PrÃ©nom de " + interaction.clientNum);
-				// il faut mettre une pause avant la ligne suivante et aussi modifier le nom, et surtout afficher le nom et pas le numero
+				interaction.display("Modification de " + this.getClient().lastname + " par : [Nouveau Nom]");
+//				this.
+//				interaction.readData()
 			}
 			if (m.equals("2")) {
-				interaction.display("PrÃ©nom de famille de Jacky");
-				
+				interaction.display("Modification de " + this.getClient().firstname + " par : [Nouveau PrÃ©nom]");
+								
 			}
 			if (m.equals("3")) {
-				interaction.display("Adresse de famille de Jacky");
+				interaction.display("Modification de " + this.getClient().address + " par : [Nouvelle Adresse]");
 				
 			}
 			if (m.equals("4")) {
-				interaction.display("Zip de famille de Jacky");
+				interaction.display("Modification de " + this.getClient().zipCode + " par : [Nouveau Code postal]");
 				
 			}
 			if (m.equals("5")) {
-				interaction.display("Nom de famille de Jacky");
+				interaction.display("Modification de " + this.getClient().city + " par : [Nouvelle Ville]");
 				
 			}
 			if (m.equals("6")) {
-				interaction.display("Nom de famille de Jacky");
+				interaction.display("Modification de " + this.getClient().telephone + " par / [Nouveau NumÃ©ro de tÃ©lÃ©phone]");
 				
 			}			
 			if (m.equals("7")) {
+				interaction.display("Sortie de la modification de " + this.getClient().lastname + " " + this.getClient().firstname);
 				alive = false;
 				}
 			else {
@@ -105,11 +109,16 @@ public class ProxiBanqueSI {
 	}
 
 	public void read() {
-		
+		interaction.display("\n\n\n\n\n\nNom : " + this.getClient().lastname);
+		interaction.display("PrÃ©nom : " + this.getClient().firstname);
+		interaction.display("Adresse : " + this.getClient().address);
+		interaction.display("Code postal : " + this.getClient().zipCode);
+		interaction.display("Ville : " + this.getClient().city);
+		interaction.display("NumÃ©ro de tÃ©lÃ©phone : " + this.getClient().telephone);
 	}
 
 	public void delete() {
-		interaction.display("Etes-vous sûr de vouloir supprimer ce client ?\n1. Oui\n2. Non.");
+		interaction.display("Etes-vous sï¿½r de vouloir supprimer ce client ?\n1. Oui\n2. Non.");
 		String ans = interaction.readData();
 		if (ans.equals("1")) {
 			this.getAdvisor().clientList.remove(this.getClient());
@@ -125,8 +134,8 @@ public class ProxiBanqueSI {
 
 	public void simulateCredit() {
 		String client = "Jacky";
-		interaction.display("Votre client " + client
-				+ " est fauché, la simulation effectuée ne vous permet pas de lui accorder un crédit. Même avec du piston!");
+		interaction.display("\n\n\n\n\nVotre client " + client
+				+ " est fauchï¿½, la simulation effectuï¿½e ne vous permet pas de lui accorder un crï¿½dit. Mï¿½me avec du piston!");
 	}
 
 	public void loadTestData() {
