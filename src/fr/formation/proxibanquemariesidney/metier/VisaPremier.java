@@ -1,11 +1,8 @@
 package fr.formation.proxibanquemariesidney.metier;
 
 /**
- * Cette classe "VisaPremier" est la classe correspondant Ã  la carte
- * VISAPremier. Cette classe hÃ©rite de la classe mÃ¨re "CreditCard".
- * 
- * @author Adminl
- *
+ * @author Adminl La classe "VisaPremier" est la classe correspondant à la carte
+ *         VISAPremier. Cette classe hérite de la classe mère "CreditCard".
  */
 public class VisaPremier extends CreditCard {
 }

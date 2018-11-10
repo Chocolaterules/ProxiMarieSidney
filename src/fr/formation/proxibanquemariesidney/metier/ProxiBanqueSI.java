@@ -6,8 +6,22 @@ import java.util.Map;
 import fr.formation.proxibanquemariesidney.persistance.Database;
 import fr.formation.proxibanquemariesidney.presentation.Interaction;
 
+/**
+ * @author marie La classe ProxiBanqueSI est la classe de traitement du
+ *         programme. Elle a pour import Map et HashMap, et les classes Database
+ *         et Interaction. Elle pour attributs :
+ *         - "modifyMenu" une Map des types de modifications possibles.
+ *         - "optionMenu" une Map des options possibles pour un client.
+ *         - "chooseAccount" une Map des comptes possibles.
+ *         - "advisorNum" permet de savoir quel conseiller utiliser.
+ *         - "clientNum" permet de savoir quel client utiliser.
+ *         - "data" correspond à la base de données utilisée.
+ *         - " interaction" permet de faire appel aux méthodes de la classe Interaction.
+ *         - "running" permmet de sortir du programme une fois modifié.
+ *         - "AUTHORIZED_OVERDRAFT" correspond au découvert autorisé pour les comptes courants.
+ *         - "INTEREST_RATE" correspond au taux d'intérêt des comptes épargnes".
+ */
 public class ProxiBanqueSI {
-
 
 	public Map<String, String> modifyMenu;
 	public Map<String, String> optionMenu;
@@ -20,6 +34,10 @@ public class ProxiBanqueSI {
 	public static final int AUTHORIZED_OVERDAFT = 1000;
 	public static final int INTEREST_RATE = 3;
 
+	/**
+	 * Cette méthode instancie un objet ProxiBanqueSI en initialisant certaines
+	 * variables.
+	 */
 	public ProxiBanqueSI() {
 		this.data = new Database();
 		this.interaction = new Interaction();
@@ -31,6 +49,13 @@ public class ProxiBanqueSI {
 		this.running = true;
 	}
 
+	/**
+	 * Cette méthode lance le programme, en faisant d'abord appel à la méthode
+	 * "loadTestData" puis la méthode "homepage", avant de boucler sur la méthode
+	 * "manageFirstChoice" jusqu'à ce que le boolean "running" passe à false. Le duo
+	 * "display" et "readData" permettent de mettre une pause entre deux itérations
+	 * de "manageFirstChoice".
+	 */
 	public void start() {
 
 		this.loadTestData();
@@ -42,6 +67,13 @@ public class ProxiBanqueSI {
 		}
 	}
 
+	/**
+	 * Cette méthode permet de créer un nouveau client, en remplissant ses attributs
+	 * puis en choisissant quel(s) type(s) de compte(s) il faut ouvrir, le compte
+	 * courant ayant la possibilité d'avoir une carte bancaire. Une fois le client
+	 * enregistré, l'utilisateur peut accéder à ce client ou revenir au menu
+	 * principal.
+	 */
 	private void create() {
 
 		interaction.display("\n\nNom de famille ?");
@@ -158,6 +190,9 @@ public class ProxiBanqueSI {
 		}
 	}
 
+	/**
+	 * Cette méthode permet de modifier les attributs d'un client.
+	 */
 	private void modify() {
 		boolean alive = true;
 		while (alive) {
@@ -205,6 +240,9 @@ public class ProxiBanqueSI {
 
 	}
 
+	/**
+	 * Cette méthode permet de voir les attributs d'un client.
+	 */
 	private void read() {
 		interaction.display("\n\nNom : " + this.getClient().lastname);
 		interaction.display("Prénom : " + this.getClient().firstname);
@@ -214,6 +252,9 @@ public class ProxiBanqueSI {
 		interaction.display("Numéro de téléphone : " + this.getClient().telephone);
 	}
 
+	/**
+	 * Cette méthode permet de supprimer un client de la base de données.
+	 */
 	private void delete() {
 		boolean errorDel = true;
 		while (errorDel) {
@@ -232,6 +273,12 @@ public class ProxiBanqueSI {
 		}
 	}
 
+	/**
+	 * Cette méthode permet de faire un virement entre le compte courant et le
+	 * compte épargne d'un client, s'il a ces deux comptes. Il faut choisir le
+	 * compte émetteur et le montant du virement. Le virement n'est effectué que si
+	 * le solde du compte émetteur le permet.
+	 */
 	private void transfer() {
 		if (this.getClient().savingsAccount == null || this.getClient().currentAccount == null) {
 			interaction.display("Le client " + this.getClient().firstname + " " + this.getClient().lastname
@@ -274,12 +321,22 @@ public class ProxiBanqueSI {
 		}
 	}
 
+	/**
+	 * Cette méthode permet de simuler un crédit pour le client. Par défaut, le
+	 * client n'est pas assez fortuné pour avoir accès à un crédit.
+	 */
 	private void simulateCredit() {
 		String client = this.getClient().firstname + " " + this.getClient().lastname;
 		interaction.display("\n\n\n\n\nVotre client " + client
 				+ " est fauché, la simulation effectuée ne vous permet pas de lui accorder un crédit. Même avec du piston!");
 	}
 
+	/**
+	 * Cette méthode contient les données utilisées pour faire des tests. Elle
+	 * contient une seule agence avec un gérant et deux conseillers, avec deux
+	 * clients par conseiller. Certains client ont un compte épargne et un compte
+	 * courant, d'autres n'ont qu'un seul compte.
+	 */
 	private void loadTestData() {
 		Branch branch = new Branch("88mph", "21/10/1985");
 		branch.manager = new Manager("Erik Lenscherr");
@@ -302,6 +359,11 @@ public class ProxiBanqueSI {
 		this.data.branchList.add(branch);
 	}
 
+	/**
+	 * Cette méthode correspond au menu principal. Elle fait appel à la méthode
+	 * "firstChoice" pour l'afficher, puis en fonction de la saisie utilisateur elle
+	 * lance la méthode correspondant au choix effectué.
+	 */
 	private void manageFirstChoice() {
 		boolean errorFC = true;
 		while (errorFC) {
@@ -323,6 +385,13 @@ public class ProxiBanqueSI {
 		}
 	}
 
+	/**
+	 * Cette méthode correspondant à l'écran d'identification, elle ne permet
+	 * d'accéder au menu principal que si l'utilisateur s'identifie comme un des
+	 * conseillers connus par la base de données. La variable "advisorNum" permet de
+	 * savoir à quelle liste de client accéder dans la base de données pour le reste
+	 * du programme.
+	 */
 	private void homepage() {
 		interaction.display("Bonjour !  Bienvenue dans ProxiBanqueSI.\n");
 
@@ -340,11 +409,19 @@ public class ProxiBanqueSI {
 		}
 	}
 
+	/**
+	 * Cette méthode affiche le menu principal.
+	 */
 	private void firstChoice() {
 		interaction.display(
 				"\n\nQue voulez-vous faire ?\n\n1. Créer un nouveau client.\n2. Accéder à un client enregistré.\n3. Exit.\n\nVotre choix ?");
 	}
 
+	/**
+	 * Cette méthode permet de choisir à quel client l'utilisateur veut accéder. La
+	 * variable "clientNum" permet de savoir à quel client accéder dans la base de
+	 * données pour le reste du programme.
+	 */
 	private void clientChoice() {
 		boolean errorCC = true;
 		while (errorCC) {
@@ -364,6 +441,11 @@ public class ProxiBanqueSI {
 		}
 	}
 
+	/**
+	 * Cette méthode affiche les options possible pour un client choisi au
+	 * préalable. Elle lance ensuite la méthode correspondant à la saisie
+	 * utilisateur.
+	 */
 	private void optionMenu() {
 		boolean errorOM = true;
 		while (errorOM) {
@@ -407,14 +489,27 @@ public class ProxiBanqueSI {
 		}
 	}
 
+	/**
+	 * Cette méthode renvoit le conseiller choisi à l'écran d'accueil.
+	 * 
+	 * @return Advisor le conseiller choisi.
+	 */
 	private Advisor getAdvisor() {
 		return data.branchList.get(0).advisorList.get(this.advisorNum - 1);
 	}
 
+	/**
+	 * Cette méthode renvoit le client choisi.
+	 * 
+	 * @return Client le client choisi.
+	 */
 	private Client getClient() {
 		return data.branchList.get(0).advisorList.get(this.advisorNum - 1).clientList.get(this.clientNum - 1);
 	}
 
+	/**
+	 * Cette méthode modifie le boolean running pour sortir du programme.
+	 */
 	private void exitProxiBanque() {
 		this.running = false;
 	}
