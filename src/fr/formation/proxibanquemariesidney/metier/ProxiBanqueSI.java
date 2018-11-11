@@ -9,7 +9,7 @@ import fr.formation.proxibanquemariesidney.presentation.Interaction;
 /**
  * @author marie La classe ProxiBanqueSI est la classe de traitement du
  *         programme. Elle a pour import Map et HashMap, et les classes Database
- *         et Interaction. Elle pour attributs :
+ *         et Interaction. Elle a pour attributs :
  *         - "modifyMenu" une Map des types de modifications possibles.
  *         - "optionMenu" une Map des options possibles pour un client.
  *         - "chooseAccount" une Map des comptes possibles.
@@ -106,13 +106,13 @@ public class ProxiBanqueSI {
 					this.getClient().currentAccount = new CurrentAccount(accountNum, balance, openingDate);
 					boolean errorCB = true;
 					while (errorCB) {
-						interaction.display("Voulez-vous une carte bleue pour ce compte courant ?\n1. Oui.\n2. Non.");
+						interaction.display("\nVoulez-vous une carte bleue pour ce compte courant ?\n1. Oui.\n2. Non.");
 						String repCB = interaction.readData();
 						if (repCB.equals("1")) {
 							boolean errorTypeCB = true;
 							while (errorTypeCB) {
 								interaction.display(
-										"Quelle type de carte voulez-vous ?\1. Carte Visa Electron.\n2. Carte Visa Premier.");
+										"\nQuelle type de carte voulez-vous ?\n1. Carte Visa Electron.\n2. Carte Visa Premier.");
 								String repType = interaction.readData();
 								if (repType.equals("1")) {
 									this.getClient().creditCard = new VisaElectron();
@@ -196,7 +196,7 @@ public class ProxiBanqueSI {
 	private void modify() {
 		boolean alive = true;
 		while (alive) {
-			interaction.display("Que voulez-vous modifier?");
+			interaction.display("\nQue voulez-vous modifier?");
 			this.modifyMenu.put("1", "Nom de famille");
 			this.modifyMenu.put("2", "Prénom");
 			this.modifyMenu.put("3", "Adresse");
@@ -258,7 +258,7 @@ public class ProxiBanqueSI {
 	private void delete() {
 		boolean errorDel = true;
 		while (errorDel) {
-			interaction.display("Etes-vous sûr de vouloir supprimer ce client ?\n1. Oui\n2. Non.");
+			interaction.display("\nÊtes-vous sûr de vouloir supprimer ce client ?\n1. Oui\n2. Non.");
 			String ans = interaction.readData();
 			if (ans.equals("1")) {
 				this.getAdvisor().clientList.remove(this.getClient());
@@ -281,7 +281,7 @@ public class ProxiBanqueSI {
 	 */
 	private void transfer() {
 		if (this.getClient().savingsAccount == null || this.getClient().currentAccount == null) {
-			interaction.display("Le client " + this.getClient().firstname + " " + this.getClient().lastname
+			interaction.display("\nLe client " + this.getClient().firstname + " " + this.getClient().lastname
 					+ " ne possède qu'un seul compte et ne peut donc pas s'effectuer de transfert à lui même.");
 		} else {
 			this.chooseAccount.put("1", "Compte courant : " + this.getClient().currentAccount.balance + " PO.");
@@ -327,7 +327,7 @@ public class ProxiBanqueSI {
 	 */
 	private void simulateCredit() {
 		String client = this.getClient().firstname + " " + this.getClient().lastname;
-		interaction.display("\n\n\n\n\nVotre client " + client
+		interaction.display("\nVotre client " + client
 				+ " est fauché, la simulation effectuée ne vous permet pas de lui accorder un crédit. Même avec du piston!");
 	}
 

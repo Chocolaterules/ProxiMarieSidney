@@ -1,2 +1,1 @@
-java -jar Proxibanquev1MS.jar
-Pause
+java -jar ProxiBanqueV1MS.jar
